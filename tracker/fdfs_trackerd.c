@@ -142,6 +142,7 @@ int main(int argc, char *argv[])
 		log_destroy();
 		return result;
 	}
+	memcpy(g_bind_addr, bind_addr, IP_ADDRESS_SIZE);
 
 	if ((result=tracker_load_status_from_file(&g_tracker_last_status)) != 0)
 	{

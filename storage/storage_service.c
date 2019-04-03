@@ -2290,7 +2290,7 @@ static int storage_client_create_link_wrapper(struct fast_task_info *pTask, \
 			return result;
 		}
 
-		if (is_local_host_ip(storageServer.ip_addr))
+		if (0==strcmp(g_bind_addr,storageServer.ip_addr))
 		{
 			bCreateDirectly = true;
 		}

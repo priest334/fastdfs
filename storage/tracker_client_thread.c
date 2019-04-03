@@ -852,7 +852,7 @@ static int tracker_merge_servers(ConnectionInfo *pTrackerServer, \
 				((*ppFound)->server.status > pServer->status))
 			{
                 *(pServer->ip_addr + IP_ADDRESS_SIZE - 1) = '\0';
-				if (is_local_host_ip(pServer->ip_addr) && \
+				if (0==strcmp(g_bind_addr,pServer->ip_addr) && \
 					buff2int(pServer->port) == g_server_port)
 				{
 					need_rejoin_tracker = true;
@@ -1309,7 +1309,7 @@ static int tracker_check_response(ConnectionInfo *pTrackerServer, \
 			IP_ADDRESS_SIZE - 1);
 		*(g_trunk_server.ip_addr + (IP_ADDRESS_SIZE - 1)) = '\0';
 		g_trunk_server.port = buff2int(pBriefServers->port);
-		if (is_local_host_ip(g_trunk_server.ip_addr) && \
+		if (0==strcmp(g_bind_addr,g_trunk_server.ip_addr) && \
 			g_trunk_server.port == g_server_port)
 		{
 			if (g_if_trunker_self)

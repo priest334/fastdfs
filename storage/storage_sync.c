@@ -2826,7 +2826,7 @@ static void* storage_sync_thread_entrance(void* arg)
 			__LINE__, pStorage->ip_addr, local_ip_addr);
 		*/
 
-		if (is_local_host_ip(pStorage->ip_addr))
+		if (0==strcmp(g_bind_addr,pStorage->ip_addr))
 		{  //can't self sync to self
 			logError("file: "__FILE__", line: %d, " \
 				"ip_addr %s belong to the local host," \
@@ -3053,7 +3053,7 @@ int storage_sync_thread_start(const FDFSStorageBrief *pStorage)
 	}
 
 	if (storage_server_is_myself(pStorage) || \
-		is_local_host_ip(pStorage->ip_addr)) //can't self sync to self
+		0==strcmp(g_bind_addr,pStorage->ip_addr)) //can't self sync to self
 	{
 		logWarning("file: "__FILE__", line: %d, " \
 			"storage id: %s is myself, can't start sync thread!", \

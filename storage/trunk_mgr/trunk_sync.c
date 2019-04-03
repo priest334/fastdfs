@@ -1563,7 +1563,7 @@ static void* trunk_sync_thread_entrance(void* arg)
 			__LINE__, pStorage->ip_addr, local_ip_addr);
 		*/
 
-		if (is_local_host_ip(pStorage->ip_addr))
+		if (0==strcmp(g_bind_addr,pStorage->ip_addr))
 		{  //can't self sync to self
 			logError("file: "__FILE__", line: %d, " \
 				"ip_addr %s belong to the local host," \
@@ -1723,7 +1723,7 @@ int trunk_sync_thread_start(const FDFSStorageBrief *pStorage)
 		return 0;
 	}
 
-	if (is_local_host_ip(pStorage->ip_addr)) //can't self sync to self
+	if (0==strcmp(g_bind_addr,pStorage->ip_addr)) //can't self sync to self
 	{
 		return 0;
 	}

@@ -9,6 +9,7 @@
 #include "tracker_global.h"
 
 volatile bool g_continue_flag = true;
+char g_bind_addr[IP_ADDRESS_SIZE] = {0};
 int g_server_port = FDFS_TRACKER_SERVER_DEF_PORT;
 int g_max_connections = DEFAULT_MAX_CONNECTONS;
 int g_accept_threads = 1;

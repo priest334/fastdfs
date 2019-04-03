@@ -36,6 +36,7 @@ extern "C" {
 #endif
 
 extern volatile bool g_continue_flag;
+extern char g_bind_addr[IP_ADDRESS_SIZE];
 extern int g_server_port;
 extern FDFSGroups g_groups;
 extern int g_storage_stat_chg_count;

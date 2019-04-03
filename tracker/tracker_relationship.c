@@ -305,7 +305,7 @@ static int do_notify_leader_changed(ConnectionInfo *pTrackerServer, \
 	} while (0);
 
 	if (pTrackerServer->port == g_server_port && \
-		is_local_host_ip(pTrackerServer->ip_addr))
+		0==strcmp(g_bind_addr,pTrackerServer->ip_addr))
 	{
 		tracker_disconnect_server_ex(conn, true);
 	}
@@ -394,7 +394,7 @@ static int relationship_select_leader()
 	}
 
 	if (trackerStatus.pTrackerServer->port == g_server_port && \
-		is_local_host_ip(trackerStatus.pTrackerServer->ip_addr))
+		0==strcmp(g_bind_addr,trackerStatus.pTrackerServer->ip_addr))
 	{
 		if ((result=relationship_notify_leader_changed( \
 				trackerStatus.pTrackerServer)) != 0)

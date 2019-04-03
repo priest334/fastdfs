@@ -1977,7 +1977,7 @@ bool storage_server_is_myself(const FDFSStorageBrief *pStorageBrief)
 	}
 	else
 	{
-		return is_local_host_ip(pStorageBrief->ip_addr);
+		return 0==strcmp(g_bind_addr,pStorageBrief->ip_addr);
 	}
 }
 
@@ -1989,7 +1989,7 @@ bool storage_id_is_myself(const char *storage_id)
 	}
 	else
 	{
-		return is_local_host_ip(storage_id);
+		return 0==strcmp(g_bind_addr,storage_id);
 	}
 }
 

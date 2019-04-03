@@ -896,7 +896,7 @@ static int tracker_deal_notify_next_leader(struct fast_task_info *pTask)
 	}
 
 	if (g_if_leader_self && (leader.port != g_server_port || \
-		!is_local_host_ip(leader.ip_addr)))
+		!0==strcmp(g_bind_addr,leader.ip_addr)))
 	{
 		g_if_leader_self = false;
 		g_tracker_servers.leader_index = -1;
@@ -968,7 +968,7 @@ static int tracker_deal_commit_next_leader(struct fast_task_info *pTask)
 	}
 
 	g_tracker_servers.leader_index = server_index;
-	if (leader.port == g_server_port && is_local_host_ip(leader.ip_addr))
+	if (leader.port == g_server_port && 0==strcmp(g_bind_addr,leader.ip_addr))
 	{
 		g_if_leader_self = true;
 		g_tracker_leader_chg_count++;
