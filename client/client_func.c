@@ -13,19 +13,20 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <netdb.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <errno.h>
 #include <time.h>
 #include "fdfs_define.h"
-#include "logger.h"
+#include "fastcommon/logger.h"
 #include "fdfs_global.h"
-#include "base64.h"
-#include "sockopt.h"
-#include "shared_func.h"
-#include "ini_file_reader.h"
-#include "connection_pool.h"
+#include "fastcommon/base64.h"
+#include "fastcommon/sockopt.h"
+#include "fastcommon/shared_func.h"
+#include "fastcommon/ini_file_reader.h"
+#include "fastcommon/connection_pool.h"
 #include "tracker_types.h"
 #include "tracker_proto.h"
 #include "client_global.h"
@@ -108,8 +109,8 @@ static int copy_tracker_servers(TrackerServerGroup *pTrackerGroup, \
 		{
 			logError("file: "__FILE__", line: %d, " \
 				"conf file \"%s\", " \
-				"host \"%s\" is invalid", \
-				__LINE__, filename, szHost);
+				"host \"%s\" is invalid, error info: %s", \
+				__LINE__, filename, szHost, hstrerror(h_errno));
 			return EINVAL;
 		}
 		destServer.port = atoi(pSeperator+1);

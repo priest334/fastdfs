@@ -1,4 +1,4 @@
-#include "php7_ext_wrapper.h"
+#include "fastcommon/php7_ext_wrapper.h"
 #include "ext/standard/info.h"
 #include <zend_extensions.h>
 #include <zend_exceptions.h>
@@ -7,14 +7,14 @@
 #include <stdio.h>
 #include <errno.h>
 #include <time.h>
-#include "fdfs_client.h"
-#include "logger.h"
-#include "sockopt.h"
-#include "fdfs_global.h"
-#include "shared_func.h"
-#include "client_global.h"
+#include "fastdfs/fdfs_client.h"
+#include "fastcommon/logger.h"
+#include "fastcommon/sockopt.h"
+#include "fastdfs/fdfs_global.h"
+#include "fastcommon/shared_func.h"
+#include "fastdfs/client_global.h"
+#include "fastdfs/fdfs_http_shared.h"
 #include "fastdfs_client.h"
-#include "fdfs_http_shared.h"
 
 typedef struct
 {
@@ -53,7 +53,7 @@ typedef struct
 
 
 #if PHP_MAJOR_VERSION < 7
-#define fdfs_get_object(obj) zend_object_store_get_object(obj)
+#define fdfs_get_object(obj) zend_object_store_get_object(obj TSRMLS_CC)
 #else
 #define fdfs_get_object(obj) (void *)((char *)(Z_OBJ_P(obj)) - XtOffsetOf(php_fdfs_t, zo))
 #endif
@@ -7277,7 +7277,7 @@ static int load_config_files()
 	{
 		strcpy(g_fdfs_base_path, "/tmp");
 		fprintf(stderr, "file: "__FILE__", line: %d, " \
-			"fastdht_client.ini does not have item " \
+			"fastdfs_client.ini does not have item " \
 			"\"%s\", set to %s!", __LINE__, 
 			ITEM_NAME_BASE_PATH, g_fdfs_base_path);
 	}

@@ -19,13 +19,13 @@
 #include <errno.h>
 #include <fcntl.h>
 #include "fdfs_define.h"
-#include "base64.h"
-#include "logger.h"
+#include "fastcommon/base64.h"
+#include "fastcommon/logger.h"
 #include "fdfs_global.h"
-#include "sockopt.h"
-#include "shared_func.h"
-#include "pthread_func.h"
-#include "sched_thread.h"
+#include "fastcommon/sockopt.h"
+#include "fastcommon/shared_func.h"
+#include "fastcommon/pthread_func.h"
+#include "fastcommon/sched_thread.h"
 #include "tracker_types.h"
 #include "tracker_global.h"
 #include "tracker_mem.h"
@@ -34,7 +34,7 @@
 #include "tracker_nio.h"
 #include "tracker_relationship.h"
 #include "fdfs_shared_func.h"
-#include "ioevent_loop.h"
+#include "fastcommon/ioevent_loop.h"
 #include "tracker_service.h"
 
 #define PKG_LEN_PRINTF_FORMAT  "%d"
@@ -968,6 +968,7 @@ static int tracker_deal_commit_next_leader(struct fast_task_info *pTask)
 	}
 
 	g_tracker_servers.leader_index = server_index;
+	g_next_leader_index = -1;
 	if (leader.port == g_server_port && 0==strcmp(g_bind_addr,leader.ip_addr))
 	{
 		g_if_leader_self = true;
@@ -1984,9 +1985,9 @@ static int tracker_deal_get_one_sys_file(struct fast_task_info *pTask)
 	{
 		logError("file: "__FILE__", line: %d, " \
 			"client ip: %s, invalid offset: %"PRId64
-			" < 0 or > "OFF_PRINTF_FORMAT,  \
+			" < 0 or > %"PRId64,  \
 			__LINE__, pTask->client_ip, offset, \
-			file_stat.st_size);
+			(int64_t)file_stat.st_size);
 
 		pTask->length = sizeof(TrackerHeader);
 		return EINVAL;

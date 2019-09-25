@@ -20,13 +20,13 @@
 #include <errno.h>
 #include <time.h>
 #include "fdfs_define.h"
-#include "logger.h"
+#include "fastcommon/logger.h"
 #include "fdfs_global.h"
-#include "sockopt.h"
-#include "shared_func.h"
-#include "pthread_func.h"
-#include "sched_thread.h"
-#include "ini_file_reader.h"
+#include "fastcommon/sockopt.h"
+#include "fastcommon/shared_func.h"
+#include "fastcommon/pthread_func.h"
+#include "fastcommon/sched_thread.h"
+#include "fastcommon/ini_file_reader.h"
 #include "tracker_types.h"
 #include "tracker_proto.h"
 #include "storage_global.h"
@@ -151,11 +151,12 @@ static int storage_sync_copy_file(ConnectionInfo *pStorageServer, \
 					"sync data file, logic file: %s " \
 					"on dest server %s:%d already exists, "\
 					"but file size: %"PRId64 \
-					" not same as mine: "OFF_PRINTF_FORMAT\
+					" not same as mine: %"PRId64 \
 					", need re-sync it", __LINE__, \
 					pRecord->filename, pStorageServer->ip_addr,\
 					pStorageServer->port, \
-					file_info.file_size, stat_buf.st_size);
+					file_info.file_size, \
+                    (int64_t)stat_buf.st_size);
 
 				proto_cmd = STORAGE_PROTO_CMD_SYNC_UPDATE_FILE;
 			}

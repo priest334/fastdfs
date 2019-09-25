@@ -19,13 +19,13 @@
 #include <sys/statvfs.h>
 #include <sys/param.h>
 #include "fdfs_define.h"
-#include "logger.h"
+#include "fastcommon/logger.h"
 #include "fdfs_global.h"
-#include "sockopt.h"
-#include "shared_func.h"
-#include "pthread_func.h"
-#include "sched_thread.h"
-#include "fast_task_queue.h"
+#include "fastcommon/sockopt.h"
+#include "fastcommon/shared_func.h"
+#include "fastcommon/pthread_func.h"
+#include "fastcommon/sched_thread.h"
+#include "fastcommon/fast_task_queue.h"
 #include "tracker_types.h"
 #include "tracker_proto.h"
 #include "tracker_client_thread.h"
@@ -1210,7 +1210,7 @@ static int tracker_check_response(ConnectionInfo *pTrackerServer, \
 		if (server_count < 1)
 		{
 			logError("file: "__FILE__", line: %d, " \
-				"tracker server %s:%d, reponse server " \
+				"tracker server %s:%d, response server " \
 				"count: %d < 1", __LINE__, \
 				pTrackerServer->ip_addr, \
 				pTrackerServer->port, server_count);
@@ -1232,7 +1232,7 @@ static int tracker_check_response(ConnectionInfo *pTrackerServer, \
 			logWarning("file: "__FILE__", line: %d, " \
 				"tracker server %s:%d, " \
 				"my tracker leader is: %s:%d, " \
-				"but reponse tracker leader is null", \
+				"but response tracker leader is null", \
  				__LINE__, pTrackerServer->ip_addr, \
 				pTrackerServer->port, pTrackerLeader->ip_addr, \
 				pTrackerLeader->port);
@@ -1250,7 +1250,7 @@ static int tracker_check_response(ConnectionInfo *pTrackerServer, \
 			{
 			logWarning("file: "__FILE__", line: %d, " \
 				"tracker server %s:%d, " \
-				"reponse tracker leader: %s:%d" \
+				"response tracker leader: %s:%d" \
 				" not exist in local", __LINE__, \
 				pTrackerServer->ip_addr, \
 				pTrackerServer->port, tracker_leader_ip, \
@@ -1279,7 +1279,7 @@ static int tracker_check_response(ConnectionInfo *pTrackerServer, \
 		if (server_count < 1)
 		{
 			logError("file: "__FILE__", line: %d, " \
-				"tracker server %s:%d, reponse server " \
+				"tracker server %s:%d, response server " \
 				"count: %d < 1", __LINE__, \
 				pTrackerServer->ip_addr, \
 				pTrackerServer->port, server_count);
